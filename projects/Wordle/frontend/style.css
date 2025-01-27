@@ -1,0 +1,134 @@
+/* Reset styles to ensure consistent behavior */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevents scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Title Styling */
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Increased space between title and grid */
+}
+
+/* Wordle Board Styling */
+.wordle-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Helps center vertically */
+    justify-content: center;
+    padding-bottom: 70px; /* Adds space between the grid and the keyboard */
+}
+
+/* Wordle Grid Rows */
+.wordle-row {
+    display: flex;
+    gap: 8px; /* More space between columns */
+    margin-bottom: 8px; /* More space between rows */
+}
+.wordle-row:last-child {
+    margin-bottom: 0; /* Removes extra space for last row */
+}
+
+/* Wordle Grid Cells */
+.wordle-cell {
+    width: 60px; /* Increased size */
+    height: 60px;
+    background-color: #333;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #555;
+    border-radius: 10px; /* Rounded edges */
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Hover Effect */
+.wordle-cell:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* Keyboard Container */
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; /* Adds more spacing between keyboard rows */
+    margin-top: 20px; /* Adds more space between the keyboard and the wordle grid */
+    padding-bottom: 10px; /* Prevents it from feeling too low */
+}
+
+/* Keyboard Rows */
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px; /* More space between keys */
+}
+
+/* Individual Keys */
+.key {
+    width: 45px;
+    height: 55px;
+    background-color: #ccc;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 10px; /* Rounded edges */
+    transition: background-color 0.2s, transform 0.1s;
+    border: 1px solid #999;
+}
+
+/* Key Press Effect */
+.key.active {
+    background-color: #888;
+    transform: scale(1.05);
+}
+
+/* Space Bar Styling */
+.space-bar {
+    width: 220px;
+    border-radius: 20px;
+}
+
+/* Responsive Layout for Smaller Screens */
+@media (max-width: 600px) {
+    .title {
+        font-size: 28px;
+        margin-bottom: 20px; /* Adjust for smaller screens */
+    }
+    .wordle-cell {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+    .key {
+        width: 35px;
+        height: 45px;
+        font-size: 18px;
+    }
+    .space-bar {
+        width: 150px;
+    }
+}
