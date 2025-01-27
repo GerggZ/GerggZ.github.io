@@ -1,0 +1,43 @@
+/* Dual Skyline Header */
+.skyline-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0 40px;
+    background: linear-gradient(to right, #f4f4f4, #ffffff);
+    text-align: center;
+}
+
+/* Skyline Images */
+.header-skyline {
+    position: absolute;
+    top: 30px;
+    width: 50%;
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+/* Left and Right Skyline */
+.skyline-left {
+    left: 0;
+    background-image: url(
+    "../assets/images/Minneapolis_Skyline_Blue.png");
+}
+
+.skyline-right {
+    right: 0;
+    background-image: url(
+    "../assets/images/Munich_Skyline_Blue.png");
+}
+
+/* Adjust h1 to be slightly lower */
+.skyline-header h1 {
+    margin-top: 30px;
+    margin-bottom: -20px;
+    font-size: 36px;
+    color: #333;
+}
