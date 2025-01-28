@@ -8,8 +8,30 @@
 </head>
 <body>
     <h1 class="title">Wordle</h1>
+
+    <!-- Toggleable Analysis Panel -->
+    <div class="info-panel-container">
+        <button class="toggle-button" onclick="togglePanel()">▼</button>
+        <div class="info-panel hidden" id="analysis">
+            <p><strong>Words Left:</strong> <span id="current-words-left">--</span></p>
+            <div class="suggested-guess-box">
+                <p id="best-guess">--</p>
+            </div>
+                <div class="button-container">
+                    <button id="generate-optimal" onclick="fetchOptimalGuess()">Generate Optimal Guess</button>
+                    <button id="random-viable" onclick="fetchRandomViableGuess()">Random Viable Guess</button>
+                    <button id="random-word" onclick="fetchRandomWord()">Random Word</button>
+                    <button id="clear-guess" onclick="clearGuess()">Clear</button>
+                </div>
+        </div>
+    </div>
+
+    <!-- Wordle Game Board -->
     <div class="wordle-container" id="wordle-board"></div>
+
+    <!-- Keyboard (Directly Below the Grid) -->
     <div class="keyboard" id="keyboard"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
