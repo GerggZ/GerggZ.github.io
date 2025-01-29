@@ -11,7 +11,7 @@ const keyRows = [
     ["Space"]
 ];
 const activeKeys = new Set();
-const colors = ["#787C7E", "#C6B451", "#71AA61"];
+const colors = ["", "#787C7E", "#C6B451", "#71AA61"];
 
 let wordle; // Declare wordle variable globally
 
