@@ -1,10 +1,15 @@
-/* Reset styles to ensure consistent behavior */
+/* =====================
+   RESET STYLES
+   ===================== */
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ensures padding and border do not affect element width/height */
     margin: 0;
     padding: 0;
 }
 
+/* =====================
+   GENERAL LAYOUT & TYPOGRAPHY
+   ===================== */
 html, body {
     width: 100vw;
     height: 100vh;
@@ -12,8 +17,8 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #121212;
-    color: white;
+    background-color: #121212; /* Dark theme */
+    color: white; /* Default text color */
     font-family: Arial, sans-serif;
 }
 
@@ -21,15 +26,17 @@ html, body {
 .title {
     font-size: 36px;
     font-weight: bold;
-    margin-bottom: 10px; /* Increased space between title and grid */
+    margin-bottom: 10px; /* Moves elements below the title downward */
 }
 
-/* === ANALYSIS PANEL UNDER TITLE === */
+/* =====================
+   ANALYSIS PANEL
+   ===================== */
 .info-panel-container {
     width: 100%;
     max-width: 500px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Moves elements below the panel downward */
     position: relative;
 }
 
@@ -40,13 +47,13 @@ html, body {
     color: white;
     font-size: 18px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Smooth rotation effect */
     position: absolute;
-    top: -10px;
+    top: -10px; /* Moves the button upward */
     right: 10px;
 }
 
-/* Analysis Panel */
+/* Collapsible Info Panel */
 .info-panel {
     width: 100%;
     max-width: 500px;
@@ -59,19 +66,32 @@ html, body {
     max-height: 300px;
 }
 
-/* Panel Headings */
 .info-panel h2 {
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-/* Panel Text */
 .info-panel p {
     font-size: 14px;
     line-height: 1.5;
 }
 
-/* Suggested Guess Box */
+.info-panel.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+}
+
+/* Rotate Button when Panel is Open */
+.toggle-button.rotate {
+    transform: rotate(180deg);
+}
+
+/* =====================
+   SUGGESTED GUESS BOX
+   ===================== */
 .suggested-guess-box {
     width: 100%;
     height: 50px;
@@ -81,13 +101,15 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0;
+    margin: 10px 0; /* Moves objects above and below this box */
     font-size: 18px;
     font-weight: bold;
-    color: #f4a261;
+    color: #f4a261; /* Highlight color */
 }
 
-/* Button Container */
+/* =====================
+   BUTTONS & CHECKBOXES
+   ===================== */
 .button-container {
     display: flex;
     flex-wrap: wrap;
@@ -95,7 +117,12 @@ html, body {
     gap: 10px;
 }
 
-/* Buttons */
+.button-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .button-container button {
     background-color: #333;
     color: white;
@@ -108,47 +135,47 @@ html, body {
     transition: background-color 0.2s, transform 0.1s;
 }
 
-/* Button Hover Effect */
 .button-container button:hover {
     background-color: #444;
     transform: scale(1.05);
 }
 
-/* Collapsed Panel */
-.info-panel.hidden {
-    max-height: 0;
-    opacity: 0;
-    padding: 0;
-    border: none;
-    overflow: hidden;
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
 }
 
-/* Rotated Button for Collapse/Expand */
-.toggle-button.rotate {
-    transform: rotate(180deg);
+.checkbox-container input {
+    margin-right: 5px;
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
-/* Wordle Board Styling */
+/* =====================
+   WORDLE BOARD
+   ===================== */
 .wordle-board {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-grow: 1; /* Helps center vertically */
+    flex-grow: 1;
     justify-content: center;
-    padding-bottom: 70px; /* Adds space between the grid and the keyboard */
+    padding-bottom: 70px; /* Adds space below the grid */
 }
 
-/* Wordle Grid Rows */
 .wordle-row {
     display: flex;
-    gap: 8px; /* More space between columns */
-    margin-bottom: 8px; /* More space between rows */
-}
-.wordle-row:last-child {
-    margin-bottom: 0; /* Removes extra space for last row */
+    gap: 8px;
+    margin-bottom: 8px; /* Moves rows downward */
 }
 
-/* Wordle Grid Cells */
+.wordle-row:last-child {
+    margin-bottom: 0;
+}
+
 .wordle-cell {
     width: 60px;
     height: 60px;
@@ -164,13 +191,14 @@ html, body {
     transition: background-color 0.2s, transform 0.1s;
 }
 
-/* Hover Effect */
 .wordle-cell:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
-/* Keyboard Container */
+/* =====================
+   KEYBOARD STYLING
+   ===================== */
 .keyboard {
     display: flex;
     flex-direction: column;
@@ -180,14 +208,12 @@ html, body {
     padding-bottom: 10px;
 }
 
-/* Keyboard Rows */
 .keyboard-row {
     display: flex;
     justify-content: center;
     gap: 6px;
 }
 
-/* Individual Keys */
 .key {
     width: 45px;
     height: 55px;
@@ -204,19 +230,19 @@ html, body {
     border: 1px solid #999;
 }
 
-/* Key Press Effect */
 .key.active {
     background-color: #888;
     transform: scale(1.05);
 }
 
-/* Space Bar Styling */
 .space-bar {
     width: 220px;
     border-radius: 20px;
 }
 
-/* Responsive Layout for Smaller Screens */
+/* =====================
+   RESPONSIVE DESIGN
+   ===================== */
 @media (max-width: 600px) {
     .title {
         font-size: 28px;

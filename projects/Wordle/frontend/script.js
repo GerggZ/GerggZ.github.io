@@ -4,8 +4,6 @@ const rows = 6;
 const cols = 5;
 let currentRow = 0;
 let currentGuess = "";
-const BASE_URL = "http://127.0.0.1:8080";
-
 const keyRows = [
     "QWERTYUIOP".split(""),
     "ASDFGHJKL".split(""),
@@ -13,7 +11,7 @@ const keyRows = [
     ["Space"]
 ];
 const activeKeys = new Set();
-const colors = ["", "#787C7E", "#C6B451", "#71AA61"];
+const colors = ["#787C7E", "#C6B451", "#71AA61"];
 
 let wordle; // Declare wordle variable globally
 
@@ -82,9 +80,6 @@ function handleKeyDown(letter, keyElement) {
     activeKeys.add(letter);
     keyElement.classList.add('active');
     handleInput(letter);
-
-    // Call sendBoardToServer() after every keystroke
-    sendBoardToServer();
 }
 
 function handleKeyUp(letter, keyElement) {
@@ -117,23 +112,33 @@ function handleInput(letter) {
 document.addEventListener('keydown', async (event) => {
     const key = event.key;
 
-    if (key === 'Backspace' && currentGuess.length > 0) {
-        // Handle Backspace
-        // Get the row and cell that needs to be cleared
-        const row = board.children[currentRow];
-        const cellIndex = currentGuess.length - 1;
-        const cell = row.children[cellIndex];
+    if (key === 'Backspace') {
 
-        // Update guess string FIRST
-        currentGuess = currentGuess.slice(0, -1);
+        if (currentGuess.length == 0 && currentRow > 0) {
+            // Move back to the previous row
+            currentRow--;
+            // Extract the guess from the previous row and set to current guess
+            const prevRow = board.children[currentRow];
+            currentGuess = Array.from(prevRow.children)
+                .map(cell => cell.textContent.trim())
+                .join("");
+        }
+        if (currentGuess.length > 0) {
+            // Get the row and cell that needs to be cleared
+            const row = board.children[currentRow];
+            const cellIndex = currentGuess.length - 1;
+            const cell = row.children[cellIndex];
 
-        // Clear the letter in the cell
-        cell.textContent = "";
+            // Update guess string FIRST
+            currentGuess = currentGuess.slice(0, -1);
 
-        // Reset the color only if the cell is empty
-        cell.dataset.colorIndex = 0;
-        cell.style.backgroundColor = ''; // Assumes default background from CSS
+            // Clear the letter in the cell
+            cell.textContent = "";
 
+            // Reset the color only if the cell is empty
+            cell.dataset.colorIndex = 0;
+            cell.style.backgroundColor = ''; // Assumes default background from CSS
+        }
     } else if (key === 'Enter' && currentGuess.length === cols) {
         const currentWord = currentGuess.toLowerCase();
 
@@ -155,9 +160,6 @@ document.addEventListener('keydown', async (event) => {
                 // Submit current word info
                 const result = wordle.submit_guess_data(words, feedback);
 
-                // Send data to the backend if needed
-                sendWordToServer(words, feedback);
-
                 // Optionally update the UI with the suggested guess and possible words left
                 document.getElementById("best-guess").textContent = `Suggested Guess: ${result.word}`;
                 document.getElementById("words-left").textContent = `Possible Words Left: ${result.possible_words_left}`;
@@ -169,9 +171,6 @@ document.addEventListener('keydown', async (event) => {
             // Increment the current row and reset the guess
             currentRow++;
             currentGuess = "";
-
-            // Send the word and feedback for all rows to the server for analysis
-            sendWordToServer(words, feedback);
         }
     } else if (key === ' ' || /^[a-zA-Z]$/.test(key)) {
         // Handle Spacebar and letter keys
@@ -194,8 +193,6 @@ document.addEventListener('keydown', async (event) => {
 
         }
     }
-    // Call sendBoardToServer() after every keystroke
-    sendBoardToServer();
 });
 
 function animateCell(cell) {
@@ -221,9 +218,6 @@ document.addEventListener('keyup', (event) => {
             keyElement.classList.remove('active');
         }
     });
-
-    // Call backend after key is released
-    sendBoardToServer();
 });
 
 function getWordAndFeedback() {
@@ -261,16 +255,6 @@ function getColorName(color) {
     return "error"; // Default to gray
 }
 
-
-function sendWordToServer() {
-    fetch(`${BASE_URL}/wordle`, {  // Change URL when deploying
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-    })
-    .catch(error => console.error("Error:", error));  // Handle errors, no response parsing needed
-}
-
-
 function sendBoardToServer() {
     const { words, feedback } = collectBoardState(); // ✅ Get the latest board state
 
@@ -279,7 +263,7 @@ function sendBoardToServer() {
         word.split('').map(char => char === '⎵' ? ' ' : char.toLowerCase()).join('')
     );
 
-    fetch(`${BASE_URL}/possible_words`, {  // Update when deploying
+    fetch("http://127.0.0.1:8080/possible_words", {  // Update when deploying
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ words, feedback, currentRow })
@@ -319,7 +303,7 @@ function collectBoardState() {
 
 async function checkIfWordIsViable(word) {
     try {
-        const response = await fetch(`${BASE_URL}/check_word_viability`, {
+        const response = await fetch("http://127.0.0.1:8080/check_word_viability", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ word })
@@ -385,21 +369,35 @@ function togglePanel() {
     }
 }
 
+// Base URL of your FastAPI server
+const BASE_URL = "http://127.0.0.1:8000";  // Update if deployed
+
 // Fetch Optimal Guess
 async function fetchOptimalGuess() {
-    const response = await fetch(`${BASE_URL}/generate-optimal-guess`, {
+    console.log('fetching best guess')
+    const response = await fetch("http://127.0.0.1:8080/generate-optimal-guess", {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
 
     const data = await response.json();  // Parse response
+    console.log(data)
+
     document.getElementById("best-guess").innerText = data.word.toUpperCase() || "Error";  // Update UI
+}
+
+// Toggle Hard Core Mode
+async function toggleHardCoreMode() {
+    await fetch("http://127.0.0.1:8080/toggle-hardcore-mode", {
+        method: "POST"
+    })
+    console.log("Hard Core Mode toggled");
 }
 
 // Fetch Random Viable Guess
 async function fetchRandomViableGuess() {
     console.log('fetching best guess')
-    const response = await fetch(`${BASE_URL}/random-viable-guess`, {
+    const response = await fetch("http://127.0.0.1:8080/random-viable-guess", {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
@@ -411,7 +409,7 @@ async function fetchRandomViableGuess() {
 
 // Fetch Random Word
 async function fetchRandomWord() {
-    const response = await fetch(`${BASE_URL}/random-guess`, {
+    const response = await fetch("http://127.0.0.1:8080/random-guess", {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
@@ -422,7 +420,7 @@ async function fetchRandomWord() {
 
 // Clear the suggested guess box (No API call needed)
 function clearGuess() {
-    document.getElementById("best-guess").innerText = "--";
+    document.getElementById("best-guess").innerText = "---";
 }
 
 createBoard();
