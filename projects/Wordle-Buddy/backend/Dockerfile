@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 # Copy dependencies first (for better caching)
 # It is set from the root directory because we run .yml
-COPY projects/Wordle/backend/requirements.txt .
+COPY projects/Wordle-Buddy/backend/requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # RUN pip install --no-cache-dir --upgrade git+https://github.com/GerggZ/WordleSolver.git
 
 # Copy the rest of the application
-COPY projects/Wordle/backend/ .
+COPY projects/Wordle-Buddy/backend/ .
 
 # Expose FastAPI port
 EXPOSE 8000
