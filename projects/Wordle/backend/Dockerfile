@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # RUN pip install --no-cache-dir --upgrade git+https://github.com/GerggZ/WordleSolver.git
 
 # Copy the rest of the application
-COPY . .
+COPY projects/Wordle/backend/ .
 
 # Expose FastAPI port
 EXPOSE 8000

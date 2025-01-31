@@ -14,8 +14,8 @@ const keyRows = [
 const activeKeys = new Set();
 const colors = ["", "#787C7E", "#C6B451", "#71AA61"];
 // Base URL of your FastAPI server
-const BASE_URL = "http://127.0.0.1:8000";  // Update if deployed
-
+// const BASE_URL = "http://127.0.0.1:8000";  // Update if deployed
+const BASE_URL = "gerggzgithubio-production.up.railway.app" // From railway.app
 let wordle; // Declare wordle variable globally
 
 function rgbToHex(rgb) {
