@@ -13,7 +13,7 @@
 html, body {
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* Prevents scrolling */
+    overflow: auto; /* Prevents scrolling */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +28,34 @@ html, body {
     font-weight: bold;
     margin-bottom: 10px; /* Moves elements below the title downward */
 }
+
+/* =====================
+   CUSTOM SCROLLBAR STYLING
+   ===================== */
+/* Hide scrollbar arrows */
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px; /* Rounds the track edges */
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background: rgba(42, 42, 42, 0.7); /* Dark gray color with transparency */
+    border-radius: 20px; /* More rounded top and bottom */
+    min-height: 50px; /* Ensures it doesn't become too small */
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+    width: 20px; /* Adjust scrollbar width */
+}
+
+
 
 /* =====================
    ANALYSIS PANEL
@@ -152,6 +180,12 @@ html, body {
     margin-right: 5px;
     transform: scale(1.2);
     cursor: pointer;
+}
+
+/* Ensure parent containers do not clip the tooltip */
+.button-container, .button-row, .checkbox-container {
+    position: relative; /* Ensures proper positioning without clipping */
+    overflow: visible; /* Prevents cutting off the tooltip */
 }
 
 /* =====================
@@ -285,3 +319,43 @@ html, body {
     user-select: none; /* Prevents user interaction */
     pointer-events: none; /* Makes sure they can't be clicked */
 }
+
+
+/* Style the info icon */
+.info-icon {
+    display: inline-block;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    margin-left: 4px;
+    position: relative;
+    vertical-align: middle; /* Aligns the icon with the text */
+}
+
+/* Tooltip box (Initially hidden) */
+.tooltip-text {
+    visibility: hidden;
+    width: 180px;
+    background-color: rgba(50, 50, 50, 0.9);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 25px; /* Positions above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    white-space: normal; /* Prevents wrapping */
+        z-index: 999; /* Ensures tooltip appears above everything */
+
+}
+
+/* Show tooltip when hovering over the info icon */
+.info-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+

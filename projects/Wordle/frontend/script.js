@@ -467,5 +467,29 @@ function deleteLock(row) {
 }
 
 
+function scaleGame() {
+    const gameContainer = document.querySelector('.scale-container');
+
+    // Base design reference size
+    const baseWidth = 1000;
+    const baseHeight = 800;
+
+    // Get current window dimensions
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // Determine the best scale factor to fit the screen
+    const scaleFactor = Math.min(screenWidth / baseWidth, screenHeight / baseHeight);
+
+    // Apply scaling to fit everything proportionally
+    gameContainer.style.transform = `scale(${scaleFactor})`;
+}
+
+// Run when the page loads and on window resize
+window.addEventListener('load', scaleGame);
+window.addEventListener('resize', scaleGame);
+
+
+
 createBoard();
 createKeyboard();
