@@ -80,11 +80,19 @@ function cycleColor(cell) {
 
 
 function handleKeyDown(letter, keyElement) {
-    if (currentRow >= rows || activeKeys.has(letter)) return;
+    if (activeKeys.has(letter)) return; // Prevent holding down
     activeKeys.add(letter);
     keyElement.classList.add('active');
-    handleInput(letter);
+
+    if (letter === "Enter") {
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+    } else if (letter === "Backspace") {
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Backspace" }));
+    } else {
+        handleInput(letter);
+    }
 }
+
 
 function handleKeyUp(letter, keyElement) {
     activeKeys.delete(letter);

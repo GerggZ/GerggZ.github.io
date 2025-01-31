@@ -11,12 +11,15 @@
    GENERAL LAYOUT & TYPOGRAPHY
    ===================== */
 html, body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     overflow: auto; /* Prevents scrolling */
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+html, body, footer {
     background-color: #121212; /* Dark theme */
     color: white; /* Default text color */
     font-family: Arial, sans-serif;
@@ -84,7 +87,7 @@ html, body {
 /* Collapsible Info Panel */
 .info-panel {
     width: 100%;
-    max-width: 500px;
+    max-width: 60vw;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 8px;
@@ -325,6 +328,9 @@ html, body {
    KEYBOARD STYLING
    ===================== */
 .keyboard {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -336,12 +342,15 @@ html, body {
 .keyboard-row {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 6px;
+    max-width: 100%;
 }
 
 .key {
-    width: 45px;
-    height: 55px;
+    width: min(45px, 7vw); /* ✅ Uses a dynamic width to prevent oversized keys */
+    height: min(55px, 10vw); /* ✅ Responsive height */
+
     background-color: #ccc;
     color: black;
     font-size: 20px;
@@ -426,7 +435,7 @@ html, body {
 /* Tooltip box (Initially hidden) */
 .tooltip-text {
     visibility: hidden;
-    width: 25vw;
+    width: 18vw;
     background-color: rgba(42, 42, 42, 0.6);
     border: 2px solid #464646; /* Light gray border */
     color: white;
@@ -451,3 +460,84 @@ html, body {
     opacity: 1;
 }
 
+
+.site-footer {
+    width: 100%; /* ✅ Uses percentage instead of `100vw` to prevent scrolling */
+    background-color: #222; /* Dark gray to match theme */
+    border-top: 2px solid #555;
+    padding: 25px 0 25px; /* ✅ 20px on top, 15px on bottom for better balance */
+    text-align: center;
+    margin-top: auto; /* ✅ Ensures footer stays at bottom */
+    color: #CCCCCC; /* ✅ Default text color */
+}
+
+
+.site-footer p {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: auto;
+    max-width: 100%; /* ✅ Ensures text stays within the full width */
+    padding: 0 10px; /* ✅ Adds small padding to prevent edge clipping */
+}
+
+.site-footer a {
+    text-decoration: underline; /* ✅ Ensures all links are underlined */
+    color: #DDDDDD; /* ✅ Slightly lighter gray to contrast with text */
+    font-weight: bold;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+    color: #FFFFFF; /* ✅ Brighter white on hover for visibility */
+}
+
+
+
+.wordle-title {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* ✅ Aligns all blocks to the bottom */
+    gap: 5px; /* Space between letters */
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 20px; /* Adds spacing below the title */
+    padding-top: 30px; /* Adds space above the title */}
+
+/* General Letter Styling */
+.letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px; /* Standard block size */
+    height: 45px;
+    border-radius: 5px;
+    color: white; /* White text inside */
+    font-size: 2rem; /* Normal size */
+}
+
+/* Larger First Letters */
+.large {
+    font-size: 2.5rem; /* ✅ Slightly larger font for title effect */
+    width: 55px; /* Slightly wider */
+    height: 55px; /* ✅ Taller to extend above other blocks */
+}
+
+/* Wordle Colors */
+.gray {
+    background-color: #787C7E;
+}
+
+.yellow {
+    background-color: #C6B451;
+}
+
+.green {
+    background-color: #71AA61;
+}
+
+/* Space Between Words */
+.space {
+    width: 15px;
+}

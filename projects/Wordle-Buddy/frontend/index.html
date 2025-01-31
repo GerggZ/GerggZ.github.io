@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordle UI</title>
+    <title>Wordle Buddy</title>
     <link rel="stylesheet" href="style.css">
+<link rel="icon" href="/projects/Wordle-Buddy/images/WordleBuddyIcon.png" type="image/png">
+<link rel="shortcut icon" href="/projects/Wordle-Buddy/images/WordleBuddyIcon.png" type="image/png">
 </head>
 <body>
-    <h1 class="title">Wordle Buddy :)</h1>
+    <div class="wordle-title">
+        <span class="letter large gray">W</span>
+        <span class="letter yellow">O</span>
+        <span class="letter green">R</span>
+        <span class="letter gray">D</span>
+        <span class="letter yellow">L</span>
+        <span class="letter green">E</span>
+
+        <span class="space"></span> <!-- Space between words -->
+
+        <span class="letter large gray">B</span>
+        <span class="letter yellow">U</span>
+        <span class="letter green">D</span>
+        <span class="letter gray">D</span>
+        <span class="letter yellow">Y</span>
+    </div>
 
     <!-- Toggleable Analysis Panel -->
     <div class="info-panel-container">
@@ -42,8 +59,25 @@
     <!-- Keyboard (Directly Below the Grid) -->
     <div class="keyboard" id="keyboard"></div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>
+            Thrown together by <a href="https://github.com/GerggZ" target="_blank">Greggory Zinniel</a> |
+            <a href="https://github.com/GerggZ/Wordle-Buddy" target="_blank">View Wordle Buddy Source Code</a> |
+            <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Play Wordle</a>
+        </p>
+    </footer>
+
     <script src="animation.js"></script>
     <script src="script.js"></script>
 
 </body>
 </html>
+
+<script>
+    // If accessed from the frontend directory, update the address bar to "/projects/Wordle-Buddy"
+    if (window.location.pathname.includes("Wordle-Buddy/frontend")) {
+        history.pushState(null, "", "/projects/Wordle-Buddy/");
+    }
+</script>
+
