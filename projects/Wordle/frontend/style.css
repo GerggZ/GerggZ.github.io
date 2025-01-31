@@ -188,6 +188,8 @@ html, body {
     position: absolute;
     width: 0;
     height: 0;
+    -webkit-appearance: none; /* Removes default Android/Chrome styling */
+    appearance: none;
 }
 
 /* Custom checkbox appearance */
