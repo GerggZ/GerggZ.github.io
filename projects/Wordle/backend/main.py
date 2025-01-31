@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 from wordle_solver.guesser import WordleGuesser
+from wordle_solver.utils.word_bank_manager import WordBankManager
 
 app = FastAPI()
 

@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  wordle-backend:
+    build:
+      context: .
+      dockerfile: projects/Wordle/backend/Dockerfile
+    container_name: wordle_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./projects/Wordle/backend:/app
+    restart: unless-stopped

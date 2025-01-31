@@ -265,3 +265,23 @@ html, body {
         max-width: 90%;
     }
 }
+
+.game-wrapper {
+    display: flex;
+    align-items: center; /* Aligns lock icons and board */
+    gap: 10px; /* Adds space between locks and board */
+}
+
+.lock-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lock-icon {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+    user-select: none; /* Prevents user interaction */
+    pointer-events: none; /* Makes sure they can't be clicked */
+}

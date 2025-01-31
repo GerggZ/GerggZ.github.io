@@ -4,6 +4,7 @@ const rows = 6;
 const cols = 5;
 let currentRow = 0;
 let currentGuess = "";
+
 const keyRows = [
     "QWERTYUIOP".split(""),
     "ASDFGHJKL".split(""),
@@ -12,6 +13,8 @@ const keyRows = [
 ];
 const activeKeys = new Set();
 const colors = ["", "#787C7E", "#C6B451", "#71AA61"];
+// Base URL of your FastAPI server
+const BASE_URL = "http://127.0.0.1:8000";  // Update if deployed
 
 let wordle; // Declare wordle variable globally
 
@@ -34,6 +37,7 @@ function createBoard() {
         board.appendChild(row);
     }
 }
+
 
 function createKeyboard() {
     keyboard.classList.add('keyboard-container');
@@ -116,7 +120,10 @@ document.addEventListener('keydown', async (event) => {
 
         if (currentGuess.length == 0 && currentRow > 0) {
             // Move back to the previous row
+            deleteLock(currentRow);
             currentRow--;
+            openLock(currentRow);
+
             // Extract the guess from the previous row and set to current guess
             const prevRow = board.children[currentRow];
             currentGuess = Array.from(prevRow.children)
@@ -139,6 +146,10 @@ document.addEventListener('keydown', async (event) => {
             cell.dataset.colorIndex = 0;
             cell.style.backgroundColor = ''; // Assumes default background from CSS
         }
+
+        // Call backend after updating color
+        sendBoardToServer();
+
     } else if (key === 'Enter' && currentGuess.length === cols) {
         const currentWord = currentGuess.toLowerCase();
 
@@ -167,6 +178,10 @@ document.addEventListener('keydown', async (event) => {
 
             // Animate row and move to the next one
             animateRow(board.children[currentRow]);
+
+            // Lock the current row and open the next row
+            closeLock(currentRow);
+            openLock(currentRow + 1);
 
             // Increment the current row and reset the guess
             currentRow++;
@@ -263,7 +278,7 @@ function sendBoardToServer() {
         word.split('').map(char => char === '⎵' ? ' ' : char.toLowerCase()).join('')
     );
 
-    fetch("http://127.0.0.1:8080/possible_words", {  // Update when deploying
+    fetch(`${BASE_URL}/possible_words`, {  // Update when deploying
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ words, feedback, currentRow })
@@ -303,7 +318,7 @@ function collectBoardState() {
 
 async function checkIfWordIsViable(word) {
     try {
-        const response = await fetch("http://127.0.0.1:8080/check_word_viability", {
+        const response = await fetch(`${BASE_URL}/check_word_viability`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ word })
@@ -369,13 +384,10 @@ function togglePanel() {
     }
 }
 
-// Base URL of your FastAPI server
-const BASE_URL = "http://127.0.0.1:8000";  // Update if deployed
-
 // Fetch Optimal Guess
 async function fetchOptimalGuess() {
     console.log('fetching best guess')
-    const response = await fetch("http://127.0.0.1:8080/generate-optimal-guess", {
+    const response = await fetch(`${BASE_URL}/generate-optimal-guess`, {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
@@ -388,7 +400,7 @@ async function fetchOptimalGuess() {
 
 // Toggle Hard Core Mode
 async function toggleHardCoreMode() {
-    await fetch("http://127.0.0.1:8080/toggle-hardcore-mode", {
+    await fetch(`${BASE_URL}/toggle-hardcore-mode`, {
         method: "POST"
     })
     console.log("Hard Core Mode toggled");
@@ -397,7 +409,7 @@ async function toggleHardCoreMode() {
 // Fetch Random Viable Guess
 async function fetchRandomViableGuess() {
     console.log('fetching best guess')
-    const response = await fetch("http://127.0.0.1:8080/random-viable-guess", {
+    const response = await fetch(`${BASE_URL}/random-viable-guess`, {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
@@ -409,7 +421,7 @@ async function fetchRandomViableGuess() {
 
 // Fetch Random Word
 async function fetchRandomWord() {
-    const response = await fetch("http://127.0.0.1:8080/random-guess", {
+    const response = await fetch(`${BASE_URL}/random-guess`, {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     });
@@ -422,6 +434,38 @@ async function fetchRandomWord() {
 function clearGuess() {
     document.getElementById("best-guess").innerText = "---";
 }
+
+
+function closeLock(row) {
+    // const rowElement = board.children[row];
+    // if (!rowElement) return;
+    //
+    // const lockIcon = rowElement.querySelector('.lock-icon');
+    // if (lockIcon) {
+    //     lockIcon.textContent = '🔒'; // Closed lock icon
+    // }
+}
+
+function openLock(row) {
+    // const rowElement = board.children[row];
+    // if (!rowElement || rowElement.querySelector('.lock-icon')) return;
+    //
+    // const lockIcon = document.createElement('span');
+    // lockIcon.classList.add('lock-icon');
+    // lockIcon.textContent = '🔓'; // Open lock icon
+    // rowElement.insertBefore(lockIcon, rowElement.firstChild);
+}
+
+function deleteLock(row) {
+    // const rowElement = board.children[row];
+    // if (!rowElement) return;
+    //
+    // const lockIcon = rowElement.querySelector('.lock-icon');
+    // if (lockIcon) {
+    //     lockIcon.remove();
+    // }
+}
+
 
 createBoard();
 createKeyboard();
