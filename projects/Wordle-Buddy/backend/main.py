@@ -1,10 +1,11 @@
 # main.py
-
+import os
+from starlette.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 from wordle_solver.guesser import WordleGuesser
-from wordle_solver.utils.word_bank_manager import WordBankManager
 
 app = FastAPI()
 
@@ -16,6 +17,17 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
 )
+
+# ✅ Serve static frontend files
+FRONTEND_DIR = "projects/Wordle-Buddy/frontend"
+if os.path.exists(FRONTEND_DIR):
+    app.mount("/projects/Wordle-Buddy", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
+# ✅ Serve `index.html` when users access `/projects/Wordle-Buddy/`
+@app.get("/projects/Wordle-Buddy/")
+async def serve_frontend():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
 
 # Initialize a persistent instance of WordleGuesser (only runs once)
 wordle_guesser = WordleGuesser(language="english")
