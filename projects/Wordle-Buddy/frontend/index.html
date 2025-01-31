@@ -28,12 +28,13 @@
 
     <!-- Toggleable Analysis Panel -->
     <div class="info-panel-container">
-        <button class="toggle-button" onclick="togglePanel()">▼</button>
-        <div class="info-panel" id="analysis">
-            <p><strong>Words Left:</strong> <span id="current-words-left">--</span></p>
-            <div class="suggested-guess-box">
-                <p id="best-guess">--</p>
-            </div>
+        <div class="info-panel-wrapper">
+            <button class="toggle-button" onclick="togglePanel()">▼</button>
+            <div class="info-panel" id="analysis">
+                <p><strong>Words Left:</strong> <span id="current-words-left">--</span></p>
+                <div class="suggested-guess-box">
+                    <p id="best-guess">--</p>
+                </div>
                 <div class="button-container">
                     <div class="button-row">
                         <button id="generate-optimal" onclick="fetchOptimalGuess()">Generate Optimal Guess</button>
@@ -50,8 +51,10 @@
                     <button id="random-word" onclick="fetchRandomWord()">Random Word</button>
                     <button id="clear-guess" onclick="clearGuess()">Clear</button>
                 </div>
+            </div>
         </div>
     </div>
+
 
     <!-- Wordle Game Board -->
     <div class="wordle-container" id="wordle-board"></div>

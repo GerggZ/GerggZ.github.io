@@ -65,29 +65,40 @@ html, body, footer {
    ===================== */
 .info-panel-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 95vw;
     text-align: center;
     margin-bottom: 15px; /* Moves elements below the panel downward */
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Toggle Button */
+.info-panel-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 60vw; /* Matches the panel width */
+    position: relative;
+}
+
 .toggle-button {
+    position: absolute;
+    top: 10px; /* Moves it to the top */
+    right: 10px; /* Aligns it to the right */
     background: none;
     border: none;
     color: white;
     font-size: 18px;
     cursor: pointer;
-    transition: transform 0.3s ease; /* Smooth rotation effect */
-    position: absolute;
-    top: -10px; /* Moves the button upward */
-    right: 10px;
+    transition: transform 0.3s ease;
 }
+
 
 /* Collapsible Info Panel */
 .info-panel {
-    width: 100%;
-    max-width: 60vw;
+    flex-grow: 1; /* Takes up available space */
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 8px;
