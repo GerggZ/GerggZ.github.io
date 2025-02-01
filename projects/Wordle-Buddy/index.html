@@ -3,13 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to Wordle Buddy...</title>
-    <script>
-        // Redirect users to the actual project page
-        window.location.replace("/projects/Wordle/frontend/index.html");
-    </script>
+    <title>Wordle Buddy</title>
+    <link rel="stylesheet" href="frontend/wordle_buddy_styles.css">
+<link rel="icon" href="images/WordleBuddyIcon.png" type="image/png">
+<link rel="shortcut icon" href="images/WordleBuddyIcon.png" type="image/png">
 </head>
 <body>
-    <p>If you are not redirected automatically, <a href="/projects/Wordle-Buddy/frontend/index.html">click here</a>.</p>
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <button class="back-button" onclick="goBackToProjects()">⬅ Back to Projects</button>
+    </div>
+    <!-- Wordle Buddy Title -->
+    <div class="wordle-title">
+        <div class="word-box">
+            <span class="letter large gray">W</span>
+            <span class="letter yellow">    O</span>
+            <span class="letter green">     R</span>
+            <span class="letter gray">      D</span>
+            <span class="letter yellow">    L</span>
+            <span class="letter green">     E</span>
+        </div>
+
+        <div class="word-box">
+            <span class="letter large gray">B</span>
+            <span class="letter yellow">    U</span>
+            <span class="letter green">     D</span>
+            <span class="letter gray">      D</span>
+            <span class="letter yellow">    Y</span>
+        </div>
+    </div>
+
+    <!-- Toggleable Analysis Panel -->
+    <div class="info-panel-container">
+        <div class="info-panel-wrapper">
+            <button class="toggle-button" onclick="togglePanel()">▼</button>
+            <div class="info-panel" id="analysis">
+                <p><strong>Words Left:</strong> <span id="current-words-left">--</span></p>
+                <div class="suggested-guess-box">
+                    <p id="best-guess">--</p>
+                </div>
+                <div class="button-container">
+                    <div class="button-row">
+                        <button id="generate-optimal" onclick="fetchOptimalGuess()">Generate Optimal Guess</button>
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="hardcore-mode" onchange="toggleHardCoreMode()">
+                            <div class="custom-checkbox"></div>
+                            Hard Core Mode
+                            <span class="info-icon">ⓘ
+                               <span class="hint-text">In Hardcore Mode, only viable words will be guessed!</span>
+                            </span>
+                        </label>
+                    </div>
+                    <button id="random-viable" onclick="fetchRandomViableGuess()">Random Viable Guess</button>
+                    <button id="random-word" onclick="fetchRandomWord()">Random Word</button>
+                    <button id="clear-guess" onclick="clearGuess()">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Wordle Game Board -->
+    <div class="wordle-container" id="wordle-board"></div>
+
+    <!-- Keyboard -->
+    <div class="keyboard" id="keyboard"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>
+            Thrown together by <a href="https://github.com/GerggZ" target="_blank">Greggory Zinniel</a> |
+            <a href="https://github.com/GerggZ/Wordle-Buddy" target="_blank">View Wordle Buddy Source Code</a> |
+            <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Play Wordle</a>
+        </p>
+    </footer>
+
+    <script src="frontend/animation_script.js"></script>
+    <script src="frontend/wordle_buddy_script.js"></script>
+
 </body>
 </html>

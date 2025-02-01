@@ -9,5 +9,5 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./projects/Wordle/backend:/app
+      - ./projects/Wordle-Buddy/backend:/app
     restart: unless-stopped

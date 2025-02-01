@@ -18,16 +18,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-# ✅ Serve static frontend files
-FRONTEND_DIR = "projects/Wordle-Buddy/frontend"
-if os.path.exists(FRONTEND_DIR):
-    app.mount("/projects/Wordle-Buddy", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
-
-# ✅ Serve `index.html` when users access `/projects/Wordle-Buddy/`
-@app.get("/projects/Wordle-Buddy/")
-async def serve_frontend():
-    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
-
+print("WordleGuesser initialized and word bank loaded.")
 
 # Initialize a persistent instance of WordleGuesser (only runs once)
 wordle_guesser = WordleGuesser(language="english")

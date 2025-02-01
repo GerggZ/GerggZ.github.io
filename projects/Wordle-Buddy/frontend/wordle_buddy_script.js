@@ -497,7 +497,9 @@ function scaleGame() {
 window.addEventListener('load', scaleGame);
 window.addEventListener('resize', scaleGame);
 
-
+function goBackToProjects() {
+    window.location.href = "../"; // Go back to the 'projects' directory
+}
 
 createBoard();
 createKeyboard();
