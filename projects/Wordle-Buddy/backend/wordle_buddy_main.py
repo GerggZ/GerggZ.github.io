@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-from wordle_solver.guesser import WordleGuesser
+from wordle_buddy.guesser import WordleGuesser
 
 app = FastAPI()
 

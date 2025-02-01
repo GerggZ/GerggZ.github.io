@@ -15,7 +15,7 @@ COPY projects/Wordle-Buddy/backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install depedencies with my custom package upgraded
-# RUN pip install --no-cache-dir --upgrade git+https://github.com/GerggZ/WordleSolver.git
+# RUN pip install --no-cache-dir --upgrade git+https://github.com/GerggZ/WordleBuddy.git
 
 # Copy the rest of the application
 COPY projects/Wordle-Buddy/backend/ .
