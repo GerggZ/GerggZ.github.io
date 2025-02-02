@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir numpy
 # Install the custom GitHub package separately (with --no-deps for speed)
 RUN pip install --no-cache-dir --upgrade --no-deps git+https://github.com/GerggZ/WordleBuddy.git
 
-# Install the rest of the dependencies
+# Install the rest of the dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application
