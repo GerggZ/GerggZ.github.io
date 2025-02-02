@@ -8,17 +8,13 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 # Copy dependencies first (for better caching)
-# It is set from the root directory because we run .yml
-COPY projects/Wordle-Buddy/backend/requirements.txt .
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install depedencies with my custom package upgraded
-# RUN pip install --no-cache-dir --upgrade git+https://github.com/GerggZ/WordleBuddy.git
-
 # Copy the rest of the application
-COPY projects/Wordle-Buddy/backend/ .
+COPY . .
 
 # Expose FastAPI port
 EXPOSE 8000

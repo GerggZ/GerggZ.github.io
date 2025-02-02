@@ -26,7 +26,6 @@ wordle_guesser.scorer.toggle_mode(False)
 
 print("WordleGuesser initialized and word bank loaded.")
 
-
 @app.post("/check_word_viability")
 async def check_word_viability(request: Request):
     # Parse and process the incoming data
