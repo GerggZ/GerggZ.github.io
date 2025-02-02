@@ -12,7 +12,10 @@ app = FastAPI()
 # Allow all origins for now (you can restrict it later to specific domains)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (you can specify a list of trusted origins)
+    allow_origins=[
+        "https://gerggz.github.io",
+        "http://localhost:8080"
+    ],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers

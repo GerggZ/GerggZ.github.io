@@ -7,11 +7,15 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git
 
 # Copy dependencies first for caching
-COPY projects/wordle-buddy/backend/requirements.txt ./
+COPY projects/wordle-buddy/backend/requirements.txt .
+#COPY requirements.txt .
+
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of your app
-COPY projects/wordle-buddy/backend .
+#COPY projects/wordle-buddy/backend .
+COPY . .
 
 # Expose the port (optional, but good practice)
 EXPOSE 8000
