@@ -136,3 +136,19 @@ pre[class*="language-"] {
     width: 45%; /* Adjust width to fit nicely */
     max-width: 500px; /* Prevents overly large images */
 }
+
+#project-description {
+    overflow: hidden;
+    max-height: 100px; /* Adjust based on your paragraph size */
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+#toggle-description {
+    margin-top: 10px;
+    cursor: pointer;
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

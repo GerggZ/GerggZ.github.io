@@ -1,9 +1,15 @@
-// Function to load Markdown and replace overviews
 async function loadMarkdown(file) {
     try {
         console.log(`Loading ${file}...`);
-        const response = await fetch(file);
 
+        // Store the current scroll position before updating content
+        const scrollPosition = window.scrollY;
+        const markdownContainer = document.getElementById("markdown-content");
+
+        // Prevent height collapse during content update
+        markdownContainer.style.minHeight = `${markdownContainer.clientHeight}px`;
+
+        const response = await fetch(file);
         if (!response.ok) {
             throw new Error(`Failed to load ${file}. HTTP status: ${response.status}`);
         }
@@ -12,10 +18,14 @@ async function loadMarkdown(file) {
         const text = await response.text();
         const htmlContent = marked.parse(text);
 
-        // Insert parsed HTML into the markdown-content div
-        document.getElementById("markdown-content").innerHTML = htmlContent;
-        const markdownContainer = document.getElementById("markdown-content");
-        markdownContainer.innerHTML = htmlContent;
+        // Use a DocumentFragment to update content smoothly (prevents reflow)
+        const range = document.createRange();
+        range.selectNodeContents(markdownContainer);
+        const fragment = range.createContextualFragment(htmlContent);
+
+        // Replace content without causing a full re-render
+        markdownContainer.innerHTML = "";
+        markdownContainer.appendChild(fragment);
 
         // Apply syntax highlighting using Prism.js
         document.querySelectorAll("#markdown-content pre code").forEach((block) => {
@@ -29,11 +39,19 @@ async function loadMarkdown(file) {
         document.getElementById("preprocessing-overview").style.display = "none";
         document.getElementById("ml-overview").style.display = "none";
         document.getElementById("dynamic-content").style.display = "block";
+
+        // Restore auto height after new content is loaded
+        markdownContainer.style.minHeight = "auto";
+
+        // Push to history API so the back button works properly
+        history.pushState({ markdownFile: file, scrollY: scrollPosition }, "", `#${file}`);
+
     } catch (error) {
         console.error(error);
         document.getElementById("markdown-content").innerHTML = "<p>Error loading content. Please try again.</p>";
     }
 }
+
 
 function formatImages() {
     const markdownContent = document.getElementById("markdown-content");
