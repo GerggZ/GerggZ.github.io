@@ -14,8 +14,8 @@ COPY projects/wordle-buddy/backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of your app
-#COPY projects/wordle-buddy/backend .
-COPY . .
+COPY projects/wordle-buddy/backend .
+#COPY . .
 
 # Expose the port (optional, but good practice)
 EXPOSE 8000
