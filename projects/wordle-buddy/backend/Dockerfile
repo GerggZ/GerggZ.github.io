@@ -18,7 +18,7 @@ COPY projects/wordle-buddy/backend .
 #COPY . .
 
 # Expose the port (optional, but good practice)
-EXPOSE 8000
+EXPOSE 8080
 
 # Run Uvicorn
 CMD ["uvicorn", "wordle_buddy_main:app", "--host", "0.0.0.0", "--port", "8080"]

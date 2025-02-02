@@ -59,6 +59,9 @@ async function playWordleAnimation() {
     await animateEraseLetters();
 
     console.log("Animation complete! Transitioning to game...");
+
+    document.dispatchEvent(new Event("animationsFinished"));
+
 }
 
 /**
@@ -103,9 +106,6 @@ async function animateEraseLetters() {
                 animateCell(cell);  // Apply animation before removal
                 await sleep(FLASH_SPEED);
             }
-
-
-
         }
     }
 }

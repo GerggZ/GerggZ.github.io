@@ -14,9 +14,11 @@ const keyRows = [
 const activeKeys = new Set();
 const colors = ["", "#787C7E", "#C6B451", "#71AA61"];
 // Base URL of your FastAPI server
-// const BASE_URL = "http://127.0.0.1:8000";  // Update if deployed
+// const BASE_URL = "http://localhost:8080"; // Ensure correct base URL when running locally
 const BASE_URL = "https://gerggzgithubio-production.up.railway.app" // From railway.app
+
 let wordle; // Declare wordle variable globally
+let ready2Play = false;
 
 function rgbToHex(rgb) {
     const result = rgb.match(/\d+/g); // Get all numeric values (e.g., ["120", "124", "126"])
@@ -120,9 +122,18 @@ function handleInput(letter) {
         animateCell(cell);
     }
 }
+document.addEventListener("animationsFinished", () => {
+    console.log("Animations finished event received.");
+    ready2Play = true;
+});
 
 document.addEventListener('keydown', async (event) => {
     const key = event.key;
+
+    if (!ready2Play) {
+        console.log("Animations still running. Ignoring input...");
+        return;
+    }
 
     if (key === 'Backspace') {
 
@@ -158,44 +169,9 @@ document.addEventListener('keydown', async (event) => {
         // Call backend after updating color
         sendBoardToServer();
 
-    } else if (key === 'Enter' && currentGuess.length === cols) {
-        const currentWord = currentGuess.toLowerCase();
+    }
+    else if (key === ' ' || /^[a-zA-Z]$/.test(key)) {
 
-        // Call async function and wait for boolean response
-        const isValidWord = await checkIfWordIsViable(currentWord);
-
-        if (!isValidWord) {
-            // the word returned isn't a valid word!
-            animateInvalidRow(board.children[currentRow]);
-            return;
-        }
-        // Handle Enter -> Only should work if word is complete
-        if (currentGuess.length === cols && !currentGuess.includes('⎵')) {
-            // Get something? I don't quite know what
-            const { words, feedback } = getWordAndFeedback();
-
-            // Call submit_guess_data on the WordleLogic instance
-            if (wordle) {
-                // Submit current word info
-                const result = wordle.submit_guess_data(words, feedback);
-
-                // Optionally update the UI with the suggested guess and possible words left
-                document.getElementById("best-guess").textContent = `Suggested Guess: ${result.word}`;
-                document.getElementById("words-left").textContent = `Possible Words Left: ${result.possible_words_left}`;
-            }
-
-            // Animate row and move to the next one
-            animateRow(board.children[currentRow]);
-
-            // Lock the current row and open the next row
-            closeLock(currentRow);
-            openLock(currentRow + 1);
-
-            // Increment the current row and reset the guess
-            currentRow++;
-            currentGuess = "";
-        }
-    } else if (key === ' ' || /^[a-zA-Z]$/.test(key)) {
         // Handle Spacebar and letter keys
         event.preventDefault(); // Prevent default behavior for Spacebar
         if (currentGuess.length < cols) {
@@ -214,6 +190,44 @@ document.addEventListener('keydown', async (event) => {
 
             animateCell(cell);
 
+            if (currentGuess.length === cols) {
+                const currentWord = currentGuess.toLowerCase();
+
+                // Call async function and wait for boolean response
+                const isValidWord = await checkIfWordIsViable(currentWord);
+
+                if (!isValidWord) {
+                    // the word returned isn't a valid word!
+                    animateInvalidRow(board.children[currentRow]);
+                    return;
+                }
+                // Handle Enter -> Only should work if word is complete
+                if (currentGuess.length === cols && !currentGuess.includes('⎵')) {
+                    // Get something? I don't quite know what
+                    const { words, feedback } = getWordAndFeedback();
+
+                    // Call submit_guess_data on the WordleLogic instance
+                    if (wordle) {
+                        // Submit current word info
+                        const result = wordle.submit_guess_data(words, feedback);
+
+                        // Optionally update the UI with the suggested guess and possible words left
+                        document.getElementById("best-guess").textContent = `Suggested Guess: ${result.word}`;
+                        document.getElementById("words-left").textContent = `Possible Words Left: ${result.possible_words_left}`;
+                    }
+
+                    // Animate row and move to the next one
+                    animateRow(board.children[currentRow]);
+
+                    // Lock the current row and open the next row
+                    closeLock(currentRow);
+                    openLock(currentRow + 1);
+
+                    // Increment the current row and reset the guess
+                    currentRow++;
+                    currentGuess = "";
+                }
+            }
         }
     }
 });
@@ -474,28 +488,6 @@ function deleteLock(row) {
     // }
 }
 
-
-function scaleGame() {
-    const gameContainer = document.querySelector('.scale-container');
-
-    // Base design reference size
-    const baseWidth = 1000;
-    const baseHeight = 800;
-
-    // Get current window dimensions
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    // Determine the best scale factor to fit the screen
-    const scaleFactor = Math.min(screenWidth / baseWidth, screenHeight / baseHeight);
-
-    // Apply scaling to fit everything proportionally
-    gameContainer.style.transform = `scale(${scaleFactor})`;
-}
-
-// Run when the page loads and on window resize
-window.addEventListener('load', scaleGame);
-window.addEventListener('resize', scaleGame);
 
 function goBackToProjects() {
     window.location.href = "../"; // Go back to the 'projects' directory
