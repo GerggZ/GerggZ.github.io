@@ -34,6 +34,7 @@
 
 /* About Section */
 .about-section {
+    display: block; /* Ensures sections always stack */
     text-align: left;
     max-width: 800px;
     margin: 15px auto;
