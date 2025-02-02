@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first (for better caching)
-COPY requirements.txt /app/requirements.txt
+COPY requirements.txt .
 
 # Install NumPy separately to ensure caching
 RUN pip install --no-cache-dir numpy
@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir numpy
 # Install the custom GitHub package separately (with --no-deps for speed)
 RUN pip install --no-cache-dir --upgrade --no-deps git+https://github.com/GerggZ/WordleBuddy.git
 
-# Install the rest of the dependencies from requirements.txt
+# Install the rest of the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application
@@ -26,4 +26,4 @@ COPY . .
 EXPOSE 8080
 
 # Run FastAPI with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["sh", "-c", "uvicorn wordle_buddy_main:app --host 0.0.0.0 --port ${PORT}"]
