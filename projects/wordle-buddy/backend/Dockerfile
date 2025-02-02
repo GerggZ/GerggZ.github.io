@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first (for better caching)
-COPY requirements.txt .
+COPY requirements.txt /app/requirements.txt
 
 # Install NumPy separately to ensure caching
 RUN pip install --no-cache-dir numpy
