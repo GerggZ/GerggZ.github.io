@@ -82,7 +82,7 @@ html, body, footer {
     display: flex;
     justify-content: flex-start;
     padding: 15px 20px;
-    position: relative; /* Prevents overlap with Wordle-Buddy Title */
+    position: relative; /* Prevents overlap with wordle-buddy Title */
 }
 
 .back-button {
