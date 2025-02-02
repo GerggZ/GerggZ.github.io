@@ -152,3 +152,25 @@ pre[class*="language-"] {
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+
+/* Back to Overviews Link - Fully Left-Aligned */
+.markdown-back-button {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #536E80;
+    font-weight: bold;
+    gap: 10px;
+    text-align: left;
+    width: 100%;
+    padding-left: 0px; /* Adjust if needed */
+    margin-bottom: -75px;
+}
+
+.markdown-back-button:hover {
+    color: #20313D;
+    text-decoration: underline;
+}
