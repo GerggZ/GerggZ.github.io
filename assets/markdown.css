@@ -1,0 +1,138 @@
+/* Markdown Styling (GitHub-like) */
+.markdown-body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white; /* Ensures background matches the main page */
+    color: #333;
+    border-radius: 5px;
+}
+
+/* Headers */
+.markdown-body h1 {
+    font-size: 2em;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.markdown-body h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+}
+
+/* Paragraphs and Links */
+.markdown-body p {
+    margin: 10px 0;
+}
+
+.markdown-body a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+
+/* Code Blocks */
+.markdown-body pre {
+    background: #f6f8fa;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.markdown-body code {
+    font-family: monospace;
+    background: #f6f8fa;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* Lists */
+.markdown-body ul {
+    padding-left: 20px;
+}
+
+.markdown-body li {
+    margin-bottom: 5px;
+}
+
+
+/* Inline Code (Single-line `code`) */
+code {
+    background: #eee;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 90%;
+    color: #d63384; /* Adjust text color */
+}
+
+/* Main Title (h1) - Dark Navy Blue */
+.markdown-body h1 {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #003366; /* Dark Navy Blue */
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Section Headers (h2) - Medium Blue */
+.markdown-body h2 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #0055A4; /* Medium Blue */
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+}
+
+/* Subsection Headers (h3) - Lighter Blue */
+.markdown-body h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0077C8; /* Light Blue */
+}
+
+/* Sub-Subsection Headers (h4) - Even Lighter Blue */
+.markdown-body h4 {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #F4A261; /* Very Light Blue */
+}
+
+/* Code Blocks - Gray Background */
+pre[class*="language-"] {
+    background: #f4f4f4 !important; /* Light gray background for contrast */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+/* Ensure images fit within content */
+.markdown-body img {
+    max-width: 100%; /* Prevents images from overflowing */
+    height: auto; /* Keeps aspect ratio */
+    display: block;
+    margin: 20px auto; /* Centers the images */
+    border-radius: 5px; /* Optional: Adds rounded corners */
+}
+
+/* Side-by-side image container */
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adds space between images */
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+/* Ensures both images have equal width */
+.image-container img {
+    width: 45%; /* Adjust width to fit nicely */
+    max-width: 500px; /* Prevents overly large images */
+}

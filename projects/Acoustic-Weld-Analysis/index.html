@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acoustic Welding Analysis</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <link rel="stylesheet" href="../../assets/navbar.css">
+    <link rel="stylesheet" href="../../assets/sections.css">
+    <link rel="stylesheet" href="../../assets/skyline.css">
+    <link rel="stylesheet" href="../../assets/markdown.css">
+
+    <link rel="icon" href="../../assets/images/WebsiteIcon1.png" type="image/png">
+    <link rel="shortcut icon" href="../../assets/images/WebsiteIcon1.png" type="image/png">
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="../../assets/markdown_formatting.js" defer></script>
+</head>
+<body>
+
+    <!-- Dual Skyline Header -->
+    <header class="skyline-header">
+        <div class="header-skyline skyline-left"></div>
+        <h1>Acoustic Welding Analysis</h1>
+        <div class="header-skyline skyline-right"></div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav>
+        <ul>
+            <li><a href="../../index.html">🏠 Home</a></li>
+            <li><a href="../../resume/index.html">📜 Resume</a></li>
+            <li><a href="../../projects/index.html">💻 Projects</a></li>
+            <li><a href="../../gallery/index.html">📷 Photo Gallery</a></li>
+            <li><a href="../../about/index.html">🙋 About Me</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fixed Introduction Section (Always Visible) -->
+    <section id="fixed-intro" class="about-section">
+        <h2>Acoustic Welding Analysis - Semester Thesis</h2>
+        <p> This project focuses on the analysis and refinement of acoustic welding processes,
+            leveraging advanced data-driven techniques to enhance accuracy and consistency.
+            Various methodologies were employed to process and analyze profilometry data,
+            including height profile flattening, noise reduction, and structural evaluation.
+            By integrating computational techniques such as median filtering, polynomial surface
+            fitting, and Gaussian smoothing, the study aims to improve the interpretation of
+            welding outcomes and provide insights into material behavior. The results contribute
+            to optimizing welding parameters, ensuring high-quality joint formation, and advancing
+            automated quality control in manufacturing applications.</p>
+
+    </section>
+
+    <!-- Preprocessing Overview -->
+    <section id="preprocessing-overview" class="about-section">
+        <h2>Preprocessing Overview</h2>
+        <p> This section outlines the preprocessing techniques applied in Acoustic Welding Analysis
+            to enhance data quality, remove noise, and improve the accuracy of subsequent analysis.</p>
+        <ul>
+            <li><a href="#" onclick="loadMarkdown('preprocessing/vk4_data_extraction.md')">VK4 Data Extraction</a></li>
+            <li><a href="#" onclick="loadMarkdown('preprocessing/height_profile_flattening.md')">Height Profile Flattening</a></li>
+            <li><a href="#" onclick="loadMarkdown('preprocessing/welding_extraction.md')">Welding Extraction and Alignment</a></li>
+            <li><a href="#" onclick="loadMarkdown('preprocessing/audio_weld_extraction.md')">Audio Weld Extraction</a></li>
+        </ul>
+    </section>
+
+    <!-- Machine Learning Overview -->
+    <section id="ml-overview" class="about-section">
+        <h2>Machine Learning Analysis</h2>
+        <p>This section details the machine learning approach used to analyze the acoustic welding data.
+            The analysis involved classifying the data, performing feature engineering, and applying various
+            machine learning algorithms to extract meaningful insights. Given the limited dataset of approximately
+            784 samples, careful model selection was necessary to avoid overfitting. As a result, larger neural
+            networks and other high-capacity models were not considered, ensuring a balanced approach between model
+            complexity and generalization.</p>
+        <ul>
+            <li><a href="#" onclick="loadMarkdown('feature_engineering.md')">Feature Engineering</a></li>
+            <li><a href="#" onclick="loadMarkdown('neural_network_training.md')">Neural Network Training</a></li>
+            <li><a href="#" onclick="loadMarkdown('model_evaluation.md')">Model Evaluation</a></li>
+        </ul>
+    </section>
+
+    <!-- Markdown Content Section (Initially Hidden) -->
+    <section id="dynamic-content" class="about-section" style="display: none;">
+        <a href="#" class="back-button" onclick="showOverviews()">⬅ Back to the Overviews</a>
+        <div class="markdown-body" id="markdown-content">
+            <h2>Loading content...</h2>
+        </div>
+    </section>
+
+</body>
+</html>
