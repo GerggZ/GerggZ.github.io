@@ -4,7 +4,7 @@ services:
   wordle-backend:
     build:
       context: .
-      dockerfile: projects/Wordle-Buddy/backend/Dockerfile
+      dockerfile: projects/wordle-buddy/backend/Dockerfile
     container_name: wordle_backend
     ports:
       - "8000:8000"
