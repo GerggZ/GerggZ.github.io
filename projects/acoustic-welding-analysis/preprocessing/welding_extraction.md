@@ -1,7 +1,11 @@
 # **Weld Alignment**
 
 ## **Introduction**
-The **Weld Alignment Process** standardizes the positioning of weld images, ensuring consistent analysis. Due to the flexibility of thin metal sheets, **physical deformations** affected the imaging process. To ensure reliable weld detection, this process involves **image preprocessing, alignment, and weld location extraction**.
+The **Weld Alignment Process** standardized the positioning of weld images, 
+ensuring consistent analysis. This standardization allowed for individual RGB weld images as 
+well as height profiles to be extracted for analysis. Since a jig was not used to ensure welds were positioned 
+in the same exact position between samples, it was necessary to preprocess the imagery and align every weld. This 
+process involves **image preprocessing, alignment, and weld location extraction**.
 
 ---
 
