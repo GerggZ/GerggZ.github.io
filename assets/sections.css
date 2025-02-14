@@ -30,6 +30,8 @@
     width: 25.7px;
     height: 18px;
     vertical-align: middle;
+    align-self: center; /* Ensures alignment within flex container */
+    margin-bottom: 4px; /* Adjust this value as needed */
 }
 
 /* About Section */
@@ -138,5 +140,38 @@
 .back-button:hover {
     background-color: #546D81;
     transform: scale(1.05);
+    text-decoration: none; /* Ensure no underline on hover */
 }
 
+/* Extend project-links to resume-links */
+.resume-links a {
+    display: flex;
+    align-items: center; /* Ensures both text and flag are aligned */
+    font-size: 20px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    gap: 10px;
+}
+
+/* Extend project-button for resume-buttons */
+.resume-links .project-button {
+    display: flex;
+    align-items: center; /* Vertically center flag and text */
+    justify-content: center; /* Horizontally center */
+    gap: 10px; /* Space between flag and text */
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    text-decoration: none !important; /* Remove underline */
+    color: white !important; /* Force white text */
+    width: 100%; /* Optional: Makes buttons full width */
+    max-width: 300px; /* Adjust for better layout */
+    text-align: center; /* Ensures text stays centered */
+}
+
+/* Adjust flag icon size in resume-links */
+.resume-links .project-button img {
+    width: 30px; /* Bigger flag size */
+    height: auto;
+}
