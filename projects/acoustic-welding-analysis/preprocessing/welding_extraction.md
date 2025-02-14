@@ -1,10 +1,10 @@
 # **Weld Alignment**
 
 ## **Introduction**
-The **Weld Alignment Process** standardized the positioning of weld images, 
-ensuring consistent analysis. This standardization allowed for individual RGB weld images as 
-well as height profiles to be extracted for analysis. Since a jig was not used to ensure welds were positioned 
-in the same exact position between samples, it was necessary to preprocess the imagery and align every weld. This 
+The **Weld Alignment Process** standardized the positioning of weld images,
+ensuring consistent analysis. This standardization allowed for individual RGB weld images as
+well as height profiles to be extracted for analysis. Since a jig was not used to ensure welds were positioned
+in the same exact position between samples, it was necessary to preprocess the imagery and align every weld. This
 process involves **image preprocessing, alignment, and weld location extraction**.
 
 ---
@@ -37,7 +37,7 @@ def preprocess_image(img, contrast=2.0, brightness=10):
 Before extracting weld features, image alignment was performed to ensure consistent positioning.
 
 ### **Alignment Approach:**
-- Since every test consisted of 16 welds with similar spacing, a template was made to ensure every image would be 
+- Since every test consisted of 16 welds with similar spacing, a template was made to ensure every image would be
 aligned in the same manner.
 - **Key points** were marked using histogram data and then latter manually inspected and adjusted if necessary. The key points were used to mark
 marked the start and end of each reasonably visible weld in the image.
@@ -76,7 +76,7 @@ def detect_welds(image, threshold=100):
     """Detects weld locations using adaptive thresholding and contour detection."""
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, binary = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY_INV)
-    
+
     contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     welds = [cv2.boundingRect(cnt) for cnt in contours]  # Get bounding boxes
     return welds

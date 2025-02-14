@@ -55,19 +55,44 @@ async function loadMarkdown(file) {
 
 function formatImages() {
     const markdownContent = document.getElementById("markdown-content");
-    const images = markdownContent.querySelectorAll("img");
+    const images = [...markdownContent.querySelectorAll("img")];
 
     if (images.length > 1) {
-        let container = document.createElement("div");
-        container.className = "image-container";
+        let groupedImages = [];
+        let prevElement = null;
 
-        images.forEach((img) => {
-            container.appendChild(img);
+        images.forEach((img, index) => {
+            if (!prevElement || prevElement.nextElementSibling === img) {
+                groupedImages.push(img);
+            } else {
+                wrapImagesInContainer(groupedImages);
+                groupedImages = [img];  // Start a new group
+            }
+            prevElement = img;
         });
 
-        // Insert the container before the first image's parent
-        markdownContent.insertBefore(container, images[0]);
+        // Wrap the last group if it has multiple images
+        if (groupedImages.length > 1) {
+            wrapImagesInContainer(groupedImages);
+        }
     }
+}
+
+function wrapImagesInContainer(images) {
+    if (images.length < 2) return; // Only wrap if more than one image
+
+    let container = document.createElement("div");
+    container.className = "image-container";
+
+    images.forEach((img) => {
+        container.appendChild(img);
+    });
+
+    // Insert the container before the first image in the group
+    images[0].parentNode.insertBefore(container, images[0]);
+
+    // Remove the images from the original location after moving them
+    images.forEach((img) => img.remove());
 }
 
 // Function to show overviews again
